@@ -76,6 +76,39 @@ include "koneksi.php";
 .log-out:active {
   transform: scale(0.95); /* Tombol sedikit mengecil saat diklik */
 }
+/* Gaya untuk overlay dan efek hover */
+.carousel-item .position-relative {
+    position: relative;
+}
+
+/* Overlay dengan opacity 50% dan teks muncul saat hover */
+.carousel-item .image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Warna hitam transparan */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.carousel-item:hover .image-overlay {
+    opacity: 1;
+}
+
+.carousel-item img {
+    transition: opacity 0.3s ease;
+}
+
+.carousel-item:hover img {
+    opacity: 0.5; /* Opacity gambar menjadi 50% saat hover */
+}
+
 
 
 </style>
@@ -164,86 +197,148 @@ include "koneksi.php";
 </section>
 <!-- article end -->
 
-    <!-- gallery section -->
-    <section id="gallery"  style="background-color: #e9ecef; padding: 60px 0;">
-        <h2 class="text-center fw-bold display-6">Gallery</h2>
-        
-        <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
-                <!-- Item Pertama -->
-                <div class="carousel-item active">
-                    <div class="d-flex justify-content-center">
-                        <img src="./gambar/06e71435913eb02d5b0474db57871740.jpg" class="d-block" style="max-width: 90%; height: auto;" alt="Gambar 1">
-                    </div>
-                </div>
-                <!-- Item Kedua -->
-                <div class="carousel-item">
-                    <div class="d-flex justify-content-center">
-                        <img src="./gambar/333ebb95b7f1774b49fc1b34fa9b26de.jpg" class="d-block" style="max-width: 90%; height: auto;" alt="Gambar 2">
-                    </div>
-                </div>
-                <!-- Item Ketiga -->
-                <div class="carousel-item">
-                    <div class="d-flex justify-content-center">
-                        <img src="./gambar/37d50fe09448fa3b795a7f19166afd2b.jpg" class="d-block" style="max-width: 90%; height: auto;" alt="Gambar 3">
-                    </div>
-                </div>
-                <!-- Item Keempat -->
-                <div class="carousel-item">
-                    <div class="d-flex justify-content-center">
-                        <img src="./gambar/39ce2c2fa7a86965d8663e766b70a8ab.jpg" class="d-block" style="max-width: 90%; height: auto;" alt="Gambar 4">
-                    </div>
-                </div>
-                <!-- Item Kelima -->
-                <div class="carousel-item">
-                    <div class="d-flex justify-content-center">
-                        <img src="./gambar/69ec278e6869eeb8a187a2fbde43a056.jpg" class="d-block" style="max-width: 90%; height: auto;" alt="Gambar 5">
-                    </div>
-                </div>
-                <!-- Item Keenam -->
-                <div class="carousel-item">
-                    <div class="d-flex justify-content-center">
-                        <img src="./gambar/b8563131f893fe4979a9d1b9d978e5a0.jpg" class="d-block" style="max-width: 90%; height: auto;" alt="Gambar 6">
-                    </div>
-                </div>
-                <!-- Item Ketujuh -->
-                <div class="carousel-item">
-                    <div class="d-flex justify-content-center">
-                        <img src="./gambar/cf2220dd9d36b0589c346ce11dd7700f.jpg" class="d-block" style="max-width: 90%; height: auto;" alt="Gambar 7">
-                    </div>
-                </div>
-                <!-- Item Kedelapan -->
-                <div class="carousel-item">
-                    <div class="d-flex justify-content-center">
-                        <img src="./gambar/f030332428b77eb21f417aca5abdced7.jpg" class="d-block" style="max-width: 90%; height: auto;" alt="Gambar 8">
-                    </div>
-                </div>
-                <!-- Item Kesembilan -->
-                <div class="carousel-item">
-                    <div class="d-flex justify-content-center">
-                        <img src="./gambar/f129ded9dc88bde9ae734ad627ad8cce.jpg" class="d-block" style="max-width: 90%; height: auto;" alt="Gambar 9">
-                    </div>
-                </div>
-                <!-- Item Kesepuluh -->
-                <div class="carousel-item">
-                    <div class="d-flex justify-content-center">
-                        <img src="./gambar/f5df9af8497d3fd7493499011ff63a65.jpg" class="d-block" style="max-width: 90%; height: auto;" alt="Gambar 10">
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Kontrol Carousel -->
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
-        </div>
-        <br><br>
+<section id="gallery" style="background-color: #e9ecef; padding: 60px 0;">
+    <h2 class="text-center fw-bold display-6">Gallery</h2>
     
+    <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <?php
+            $sql1 = "SELECT gambar, nama FROM gallery";
+            $result = $conn->query($sql1);
+            $isActive = 'active'; // Menandakan item pertama yang aktif
+            if ($result->num_rows > 0) {
+                // Loop melalui hasil query dan tampilkan gambar-gambar
+                while($row = $result->fetch_assoc()) {
+                    $gambar = $row['gambar'];
+                    $nama = $row['nama'];
+            ?>
+                    <div class="carousel-item <?php echo $isActive; ?>">
+                        <div class="d-flex justify-content-center position-relative">
+                            <!-- Gambar -->
+                            <img src="<?php echo './gambar/' . $gambar; ?>" class="d-block" style="max-width: 90%; height: auto;" alt="Gambar">
+                            <!-- Nama Gambar yang tampil saat hover -->
+                            <div class="image-overlay text-center">
+                                <h3><?php echo $nama; ?></h3>
+                            </div>
+                        </div>
+                    </div>
+            <?php
+                    $isActive = ''; // Menghilangkan class active pada item selanjutnya
+                }
+            } else {
+                echo "<p>Tidak ada gambar dalam gallery.</p>";
+            }
+            ?>
+        </div>
+        
+        <!-- Kontrol Carousel -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</section>
+        <br><br>
+   
+      <section id="schedule" class="text-center p-5" style="background-color: #C8CFA0;">
+      <div class="container">
+        <h1 class="fw-bold display-4 pb-3">Schedule</h1>
+        <div class="row row-cols-1 row-cols-md-4 g-4 justify-content-center">
+          <div class="col">
+            <div class="card h-100">
+              <div class="card-header bg-danger text-white">SENIN</div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                  Etika Profesi<br />16.20-18.00 | H.4.4
+                </li>
+                <li class="list-group-item">
+                  Sistem Operasi<br />18.30-21.00 | H.4.8
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card h-100">
+              <div class="card-header bg-danger text-white">SELASA</div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                  Pendidikan Kewarganegaraan<br />12.30-13.10 | Kulino
+                </li>
+                <li class="list-group-item">
+                  Probabilitas dan Statistik<br />15.30-18.00 | H.4.9
+                </li>
+                <li class="list-group-item">
+                  Kecerdasan Buatan<br />18.30-21.00 | H.4.11
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card h-100">
+              <div class="card-header bg-danger text-white">RABU</div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                  Manajemen Proyek Teknologi Informasi<br />15.30-18.00 | H.4.6
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card h-100">
+              <div class="card-header bg-danger text-white">KAMIS</div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                  Bahasa Indonesia<br />12.30-14.10 | Kulino
+                </li>
+                <li class="list-group-item">
+                  Pendidikan Agama Islam<br />16.20-18.00 | Kulino
+                </li>
+                <li class="list-group-item">
+                  Penambangan Data<br />18.30-21.00 | H.4.9
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card h-100">
+              <div class="card-header bg-danger text-white">JUMAT</div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                  Pemrograman Web Lanjut<br />10.20-12.00 | D.2.K
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card h-100">
+              <div class="card-header bg-danger text-white">SABTU</div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">FREE</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>    
+    <section id="hero" style="background-color: #e9ecef; padding: 60px 0;">
+        <div class="container text-sm-start">
+          <div class="d-sm-flex flex-sm-row-reverse align-items-center">
+            <img src="https://cloud.jpnn.com/photo/jatim/news/normal/2024/08/13/melalui-teknologi-iot-ppko-doscom-udinus-bantu-tingkatkan-pr-091x.jpg" class="img-fluid me-sm-4" width="300" style="border-radius:15px 50px;" alt="Image description">
+            <div class="text-center text-sm-start">
+              <h1 class="fw-bold display-2">About Me</h1>
+              <h4 class="lead display-7">Nama: Muhammad Ivan Rafsanjani</h4>
+                <h4 class="lead display-7">Nim : A11.2023.14933</h4>
+               
+              <h4 class="lead display-7">Perkenalkan saya ivan saya adalah laki laki yang mencari cinta sejati tapi slelalu gagal dalam hal mencari seseorang yang saya akan    .</h4>
+            </div>
+          </div>
+        </div>
+        <br><br><br>
+      </section>  
         <div class="video text-center">
             <h2><b>-Video-</b></h2>
             <div class="responsive-iframe">
