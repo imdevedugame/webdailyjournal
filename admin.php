@@ -14,7 +14,7 @@ if (!isset($_SESSION['username'])) {
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>My Daily Journal | Admin</title>
+    <title>MUSIX | Admin</title>
     <link rel="icon" href="img/logo.png" />
     <link
     rel="stylesheet"
@@ -26,12 +26,13 @@ if (!isset($_SESSION['username'])) {
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
     crossorigin="anonymous"
     /> 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <body>
     <!-- nav begin -->
-    <nav class="navbar navbar-expand-sm bg-body-tertiary sticky-top bg-danger-subtle">
+    <nav class="navbar navbar-expand-sm  sticky-top"  /style="background-color: #FFAFCC;"/>
     <div class="container">
-        <a class="navbar-brand" href=".">My Daily Journal</a>
+        <a class="navbar-brand" href="">MUSIX</a>
         <button
         class="navbar-toggler"
         type="button"
@@ -53,14 +54,15 @@ if (!isset($_SESSION['username'])) {
             </li> 
             <li class="nav-item">
                 <a class="nav-link" href="admin.php?page=gallery">Gallery</a>
-            </li>
+            </li> 
+           
+           
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle text-danger fw-bold" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <?= $_SESSION['username']?>
                 </a>
-                
                 <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="admin.php?page=profile">Profile  <?= $_SESSION['username']?></a></li> 
+                <li><a class="dropdown-item" href="admin.php?page=profile">Profile <?= $_SESSION['username']?></a></li> 
                     <li><a class="dropdown-item" href="logout.php">Logout</a></li> 
                 </ul>
             </li> 
@@ -69,8 +71,7 @@ if (!isset($_SESSION['username'])) {
     </div>
     </nav>
     <!-- nav end -->
-    <!-- content begin -->
-    <!-- content begin -->
+<!-- content begin -->
 <section id="content" class="p-5">
     <div class="container">
         <?php
@@ -89,22 +90,25 @@ if (!isset($_SESSION['username'])) {
     </div>
 </section>
 <!-- content end -->
-    <!-- content end -->
     <!-- footer begin -->
-    <footer class="text-center p-5 bg-danger-subtle footer bottom">
+    <br><br><br><br><br><br>
+     
+     <footer class="text-center p-3  footer fixed"  /style="background-color: #FFAFCC;"/>
     <div>
-        <a href="https://www.instagram.com/Imvanz_"
-        ><i class="bi bi-instagram h2 p-2 text-dark"></i
+        <a href="https://www.instagram.com/"
+        ><i class="bi bi-instagram h2 p-2 text-secondary"></i
         ></a>
-        <a href="https://twitter.com/udinusofficial"
-        ><i class="bi bi-twitter h2 p-2 text-dark"></i
+        <a href=""
+        ><i class="bi bi-twitter h2 p-2 text-secondary"></i
         ></a>
-        <a href="https://wa.me/+6287700313085"
-        ><i class="bi bi-whatsapp h2 p-2 text-dark"></i
+        <a href=""
+        ><i class="bi bi-whatsapp h2 p-2 text-secondary"></i
         ></a>
     </div>
-    <div>Muhammad Ivan Rafsanjani &copy; 2024</div>
+    <div class="text-secondary">Muhammad Ivan Rafsanjani &copy; 2025</div>
+
     </footer>
+   
     <!-- footer end -->
     <script
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"

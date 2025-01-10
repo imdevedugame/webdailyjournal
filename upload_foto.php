@@ -1,3 +1,4 @@
+
 <?php 
 function upload_foto($File){    
 	$uploadOk = 1;

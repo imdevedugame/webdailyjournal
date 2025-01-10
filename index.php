@@ -135,6 +135,13 @@ include "koneksi.php";
               <li class="nav-item">
                 <a class="nav-link text-dark" href="#article">Article</a>
               </li>
+               <li class="nav-item">
+                <a class="nav-link text-dark" href="#schedule">schedule</a>
+              </li>
+               <li class="nav-item">
+                <a class="nav-link text-dark" href="#about">About</a>
+              </li>
+          
                   <li class="nav-item">
                       <a class="nav-link text-dark" href="login.php"><button class="log-out"> login </button></a>
                     </li>
@@ -324,7 +331,7 @@ include "koneksi.php";
         </div>
       </div>
     </section>    
-    <section id="hero" style="background-color: #e9ecef; padding: 60px 0;">
+    <section id="about" style="background-color: #e9ecef; padding: 60px 0;">
         <div class="container text-sm-start">
           <div class="d-sm-flex flex-sm-row-reverse align-items-center">
             <img src="https://cloud.jpnn.com/photo/jatim/news/normal/2024/08/13/melalui-teknologi-iot-ppko-doscom-udinus-bantu-tingkatkan-pr-091x.jpg" class="img-fluid me-sm-4" width="300" style="border-radius:15px 50px;" alt="Image description">
